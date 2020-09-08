@@ -8,10 +8,10 @@
 User.destroy_all
 Score.destroy_all
 
-tom = User.create(name: "Tom", email_address: "tom@mail.com", password: "password", sprite_name: "mario")
+tom = User.create(name: "Tom", email_address: "tom@mail.com", password: 'password', sprite_name: "mario")
 
-will = User.create(name: "Will", email_address: "will@mail.com", password: "password", sprite_name: "luigi")
-angelo = User.create(name: "Angelo", email_address: "angelo@mail.com", password: "password", sprite_name: "wario")
+will = User.create(name: "Will", email_address: "will@mail.com", password: 'password', sprite_name: "luigi")
+angelo = User.create(name: "Angelo", email_address: "angelo@mail.com", password: 'password', sprite_name: "wario")
 
 score1 = Score.create(score: 20, user_id: 1)
 score2 = Score.create(score: 10, user_id: 2)
