@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :find_user, only: [:show, :create, :destroy]
+    before_action :find_user, only: [:show, :create, :destroy, :update]
     def index
         @users = User.all
         render json: @users
@@ -19,6 +19,12 @@ class UsersController < ApplicationController
         else
             render json: { errors: @user.errors.full_messages }
         end
+    end
+
+    def update
+        @user.update(user_params)
+        @user.save
+        render json: @user
     end
 
     def destroy
