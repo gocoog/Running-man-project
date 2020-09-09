@@ -4,7 +4,7 @@
   src: url("assets/texts/SuperMario256.ttf")
 }
 html { 
-    background: url(assets/background/mario_background.png) no-repeat center center fixed; 
+    background: url(assets/background/mario2.jpg) no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -35,6 +35,8 @@ html {
   .submit {
       font-family: marioFont;
       color: white;
+      -webkit-text-stroke-width: 2px;
+      -webkit-text-stroke-color: black;
   }
 
   .obstacle {
@@ -44,13 +46,4 @@ html {
     background-image: url(assets/sprites/smallgoomba.png);
     bottom: 0px;
   }
-  #game-container {
-    position: absolute;
-    bottom: 0px;
-    background-image: url('assets/background/background.png');
-    background-repeat: repeat-x;
-    animation: slideright 600s infinite linear;
-    -webkit-animation: slideright 600s infinite linear;
-    width: 100%;
-    height: 200px;
-  }
+  
