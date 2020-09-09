@@ -41,8 +41,10 @@ const renderMenu = () => {
 const handleForm = (event) => {
     event.preventDefault();
     let data = {
+        "login":{
         "email_address": event.target.email_address.value,
         "password": event.target.password.value
+        }
     }
     // let emailAddress = event.target.email_address.value
     // let password = event.target.password.value
@@ -54,6 +56,10 @@ const handleForm = (event) => {
         }
       })
       .then(res => res.json())
+      .then(json => showUser(json))
 }
 
+showUser = (user) => {
+  console.log(user)
+}
 
