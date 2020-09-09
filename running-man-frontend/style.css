@@ -36,3 +36,21 @@ html {
       font-family: marioFont;
       color: white;
   }
+
+  .obstacle {
+    position: absolute;
+    width: 15%;
+    height: 15%;
+    background-image: url(assets/sprites/smallgoomba.png);
+    bottom: 0px;
+  }
+  #game-container {
+    position: absolute;
+    bottom: 0px;
+    background-image: url('assets/background/background.png');
+    background-repeat: repeat-x;
+    animation: slideright 600s infinite linear;
+    -webkit-animation: slideright 600s infinite linear;
+    width: 100%;
+    height: 200px;
+  }
