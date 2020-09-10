@@ -98,7 +98,7 @@ character.src = 'assets/sprites/mario.gif'
     let timerId = setInterval(function() {
       if (obstaclePosition > 0 && obstaclePosition < 60 && position < 60) {
         clearInterval(timerId)
-        alert.innerHTML = 'Game Over'
+        alert.innerHTML = `<span class="red">G</span><span class="blue">a</span><span class="yellow">m</span><span class="blue">e</span> <br><span class="green">O</span><span class="blue">v</span><span class="green">e</span><span class="red">r</span>`
         isGameOver = true
         //remove all children
 
@@ -156,7 +156,10 @@ const userPlayAgain = (user) => {
     renderMenu()
     localStorage.clear()
   })
+  let menuDiv = document.createElement('div')
+  menuDiv.setAttribute('class', 'menu')
+  menuDiv.append(playAgainButton, logoutButton)
+  body.appendChild(menuDiv)
 
-  body.append(playAgainButton, logoutButton)
 
 }

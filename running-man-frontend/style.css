@@ -27,16 +27,18 @@ html {
     background-repeat: no-repeat;
     background-position: center;
 
-    z-index: 1;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: black;
+
   }
 
   .submit {
       font-family: marioFont;
-      color: white;
-      -webkit-text-stroke-width: 2px;
-      -webkit-text-stroke-color: black;
+      height: 50px;
+  }
+
+  .text-stroke {
+    z-index: 1;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
   }
 
   .obstacle {
@@ -46,4 +48,79 @@ html {
     background-image: url(assets/sprites/smallgoomba.png);
     bottom: 0px;
   }
-  
+  .input-field {
+    text-align: center;
+    bottom: 0px;
+
+  }
+  .input-text {
+    font-family: marioFont;
+    color: black;
+    top: 15%;
+    
+    padding: 1rem;
+    
+  }
+
+  .create-users {
+    font-family: marioFont;
+    height: 50px;
+  }
+
+  button {
+    font-family: marioFont;
+    height: 50px;
+  }
+
+  #logout {
+    font-family: marioFont;
+    height: 50px; 
+  }
+
+  p {
+    font-size: 45px;
+    font-family: marioFont;
+    color: white;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+  }
+
+  #alert {
+    position: absolute;
+    top: 15%;
+    width: 100%;
+    height: 70%;
+    display: table;
+    text-align: center;
+    padding: 1rem;
+    font-size: 90px;
+    font-family: marioFont;
+    
+    background-size: contain, 1150px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  span.red {
+    color: red;
+    -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color: black;
+  }
+
+span.blue {
+  color: blue;
+  -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color: black;
+}
+
+span.green {
+  color: green;
+  -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color: black;
+}
+
+span.yellow {
+  color: yellow;
+  -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color: black;
+}
