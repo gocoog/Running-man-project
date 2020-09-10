@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.length < 1){
       renderMenu() 
+  } else {
+    let retrievedUser = localStorage.getItem('user');
+    showUser(JSON.parse(retrievedUser))
+  }
 
       
 })
@@ -149,6 +154,7 @@ const userPlayAgain = (user) => {
 
   logoutButton.addEventListener('click', () => {
     renderMenu()
+    localStorage.clear()
   })
 
   body.append(playAgainButton, logoutButton)
