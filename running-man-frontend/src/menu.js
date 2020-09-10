@@ -4,8 +4,11 @@ const renderMenu = () => {
     let page = `
     <div class="menu">
     <form class="new-game-form">
+    <span class="text-stroke">
       <h3>Welcome to Running man!</h3>
       <h3>Please login!</h3>
+      </span>
+      <div class="input-field">
       <input
           type="text"
           name="email_address"
@@ -32,6 +35,7 @@ const renderMenu = () => {
   <br>
     <button class="create-users"> Create New User!</button>
     <br><br>
+    </div>
     </div>
     `
 
@@ -72,6 +76,7 @@ showUser = (user) => {
   if(user === {error: "User not found"} || user.name === undefined){
     renderMenu()
     let errorMessage = document.createElement('p')
+    errorMessage.setAttribute('class', 'text-stroke')
     errorMessage.innerText = "User not found. Please create a new user!"
     const menuContainer = document.querySelector(".menu")
     menuContainer.appendChild(errorMessage)
@@ -79,26 +84,43 @@ showUser = (user) => {
   } else {
     let gameUser = user
     localStorage.setItem('user', JSON.stringify(user))
-    body.innerHTML = ""
-    const userName = document.createElement('h3')
+    let userPage = `
+    <div class="menu">
+    <span class="text-stroke">
+      <h3></h3>
+      <ul>
+      </ul>
+
+      </span>
+    </div>
+    `
+    body.innerHTML = userPage
+    const userName = document.querySelector('h3')
     userName.innerText = user.name 
     let menuDiv = document.querySelector('body')
-    //menuDiv.removeChild(menuDiv.lastChild)
-    menuDiv.appendChild(userName)
-    //let noMenu = document.querySelector('.menu').innerHTML = ""
+    
+    let menuClass = document.querySelector('.menu')
     let playGameButton = document.createElement('button')
     playGameButton.innerText = "Play Game"
-    menuDiv.appendChild(playGameButton)
+    menuClass.appendChild(playGameButton)
     playGameButton.addEventListener('click', () =>{
       playGame(gameUser)
       //menuDiv.removeChild(playGameButton)
     })
     let editUserButton = document.createElement('button')
     editUserButton.innerText = "Edit User"
-    menuDiv.appendChild(editUserButton)
+    menuClass.appendChild(editUserButton)
     editUserButton.addEventListener('click', () => {
       editUserForm(gameUser)
     })
+    let logoutButton = document.createElement('button')
+    logoutButton.innerText = "Logout"
+    logoutButton.setAttribute('id', 'logout')
+    logoutButton.addEventListener('click', () => {
+      renderMenu()
+      localStorage.clear()
+    })
+    menuClass.appendChild(logoutButton)    
 
   }
 }
@@ -164,7 +186,9 @@ const createUserFetch = (e) => {
 
 const editUserForm = (user) => {
   let editUserForm = `<div class="menu"><form class="edit-user-form">
+  <span class="text-stroke">
   <h3>Edit your information!</h3>
+  </span>
   <input
       type="text"
       name="name"
