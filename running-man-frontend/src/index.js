@@ -152,13 +152,20 @@ const userPlayAgain = (user) => {
     playGame(gameUser)
   })
 
+  let userPageButton = document.createElement('button')
+  userPageButton.innerText = 'Go back to scores page'
+  userPageButton.addEventListener('click', () => {
+    let retrievedUser = localStorage.getItem('user');
+    showUser(JSON.parse(retrievedUser))
+  })
+
   logoutButton.addEventListener('click', () => {
-    renderMenu()
     localStorage.clear()
+    renderMenu() 
   })
   let menuDiv = document.createElement('div')
   menuDiv.setAttribute('class', 'menu')
-  menuDiv.append(playAgainButton, logoutButton)
+  menuDiv.append(playAgainButton, userPageButton, logoutButton)
   body.appendChild(menuDiv)
 
 

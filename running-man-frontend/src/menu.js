@@ -97,8 +97,13 @@ showUser = (user) => {
     body.innerHTML = userPage
     const userName = document.querySelector('h3')
     userName.innerText = user.name 
-    let menuDiv = document.querySelector('body')
+
+    const userScoreBoard = document.querySelector('ul')
+
+    getUserScores(gameUser)
     
+
+    let menuDiv = document.querySelector('body')
     let menuClass = document.querySelector('.menu')
     let playGameButton = document.createElement('button')
     playGameButton.innerText = "Play Game"
@@ -117,12 +122,45 @@ showUser = (user) => {
     logoutButton.innerText = "Logout"
     logoutButton.setAttribute('id', 'logout')
     logoutButton.addEventListener('click', () => {
-      renderMenu()
       localStorage.clear()
+      renderMenu()
     })
     menuClass.appendChild(logoutButton)    
 
   }
+}
+
+function getUserScores(user) {
+  fetch(`http://localhost:3000/scores`)
+  .then(response => response.json())
+  .then(json => {
+    renderScores(json, user)
+    })
+  }
+
+const renderScores = (scores, user) => {
+  let scoreArray = []
+  for(const el of scores){
+    if (el.user_id === user.id){
+      scoreArray.push(el.score)
+      // let scoreList = document.createElement('li')
+      // scoreList.innerHTML = el.score
+      // let unoList = document.querySelector('ul')
+      // unoList.appendChild(scoreList)
+    }
+  }
+  scoreArray.sort(function(a, b) {
+        return b - a;
+      });
+
+  let topScores = scoreArray.filter((score,idx) => idx < 5)
+  for (const el of topScores) {
+    let scoreList = document.createElement('li')
+    scoreList.innerHTML = el
+    let unoList = document.querySelector('ul')
+    unoList.appendChild(scoreList)
+  }
+  console.log(topScores)
 }
 
 
@@ -246,5 +284,5 @@ const editUserFetch = (e, user) => {
   .then(json => {
     showUser(json)
   })
-
 }
+
