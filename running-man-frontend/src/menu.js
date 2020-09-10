@@ -1,3 +1,4 @@
+let gameUser = {}
 const renderMenu = () => {
     //menuContainer.innerHTML = ""
     let page = `
@@ -76,27 +77,28 @@ showUser = (user) => {
     menuContainer.appendChild(errorMessage)
     
   } else {
-    let loggedin = true
-  let gameUser = user
-  const userName = document.createElement('h3')
-  userName.innerText = user.name 
-  let menuDiv = document.querySelector('body')
-  //menuDiv.removeChild(menuDiv.lastChild)
-  menuDiv.appendChild(userName)
-  let noMenu = document.querySelector('.menu').innerHTML = ""
-  let playGameButton = document.createElement('button')
-  playGameButton.innerText = "Play Game"
-  menuDiv.appendChild(playGameButton)
-  playGameButton.addEventListener('click', () =>{
-    playGame(gameUser)
-    //menuDiv.removeChild(playGameButton)
-  })
-  let editUserButton = document.createElement('button')
-  editUserButton.innerText = "Edit User"
-  menuDiv.appendChild(editUserButton)
-  editUserButton.addEventListener('click', () => {
-    editUserForm(gameUser)
-  })
+    let gameUser = user
+    localStorage.setItem('user', JSON.stringify(user))
+    body.innerHTML = ""
+    const userName = document.createElement('h3')
+    userName.innerText = user.name 
+    let menuDiv = document.querySelector('body')
+    //menuDiv.removeChild(menuDiv.lastChild)
+    menuDiv.appendChild(userName)
+    //let noMenu = document.querySelector('.menu').innerHTML = ""
+    let playGameButton = document.createElement('button')
+    playGameButton.innerText = "Play Game"
+    menuDiv.appendChild(playGameButton)
+    playGameButton.addEventListener('click', () =>{
+      playGame(gameUser)
+      //menuDiv.removeChild(playGameButton)
+    })
+    let editUserButton = document.createElement('button')
+    editUserButton.innerText = "Edit User"
+    menuDiv.appendChild(editUserButton)
+    editUserButton.addEventListener('click', () => {
+      editUserForm(gameUser)
+    })
 
   }
 }
@@ -219,7 +221,6 @@ const editUserFetch = (e, user) => {
   .then(response => response.json())
   .then(json => {
     showUser(json)
-    debugger
   })
 
 }
