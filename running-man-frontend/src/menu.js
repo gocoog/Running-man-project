@@ -18,7 +18,7 @@ const renderMenu = () => {
         />
         <br />
         <input
-          type="text"
+          type="password"
           name="password"
           value=""
           placeholder="Enter password"
@@ -88,15 +88,16 @@ showUser = (user) => {
     <div class="menu">
     <span class="text-stroke">
       <h3></h3>
-      <ul>
-      </ul>
+      <div class="show-scores">
+      <p>Your top 5 scores:</p>
+      </div>
 
       </span>
     </div>
     `
     body.innerHTML = userPage
     const userName = document.querySelector('h3')
-    userName.innerText = user.name 
+    userName.innerText = 'Welcome' + ' ' + user.name +'!' 
 
     const userScoreBoard = document.querySelector('ul')
 
@@ -125,9 +126,82 @@ showUser = (user) => {
       localStorage.clear()
       renderMenu()
     })
-    menuClass.appendChild(logoutButton)    
+    menuClass.appendChild(logoutButton)  
+    
+    let leaderBoardButton = document.createElement('button')
+    leaderBoardButton.innerText = "Show leaderboard"
+    leaderBoardButton.addEventListener('click', () => {
+      getAllScores()
+    })
 
+    menuClass.appendChild(leaderBoardButton)
   }
+}
+
+function getAllScores() {
+  fetch(`http://localhost:3000/scores`)
+  .then(response => response.json())
+  .then(json => {
+    leaderBoard(json)
+    })
+}
+
+const leaderBoard = (scores) => {
+  let page = `
+  <div class="menu">
+  <span class="text-stroke">
+    <h3> top 10 Leaderboard</h3>
+    <div class="show-scores">
+    </div>
+
+    </span>
+  </div>
+  `
+  body.innerHTML = page
+  let userPageButton = document.createElement('button')
+  userPageButton.innerText = 'Go back to scores page'
+  userPageButton.addEventListener('click', () => {
+    let retrievedUser = localStorage.getItem('user');
+    showUser(JSON.parse(retrievedUser))
+  })
+  let menu = document.querySelector('.menu')
+  menu.appendChild(userPageButton)
+  scores.sort(compare)
+  scores = scores.filter((score,idx) => idx < 10)
+  // for (const el of scores) {
+  //   getLeaderBoard(el)
+  //   console.log(scores)
+  // }
+  console.log(scores)
+  scores.forEach(element => getLeaderBoard(element))
+}
+const getLeaderBoard = (score) => {
+  fetch(`http://localhost:3000/users/${score.user_id}`)
+  .then(response => response.json())
+  .then(json => {
+    addToList(json,score)
+  })
+}
+
+const addToList = (user, score) => {
+    let scoreList = document.createElement('p')
+    let showScores = document.querySelector('div.show-scores')
+    scoreList.innerHTML = user.data.attributes.name + ' ' + score.score
+    showScores.appendChild(scoreList)
+}
+
+function compare(a, b) {
+  // Use toUpperCase() to ignore character casing
+  const score1 = a.score
+  const score2 = b.score
+
+  let comparison = 0;
+  if (score1 > score2) {
+    comparison = -1;
+  } else if (score1 < score2) {
+    comparison = 1;
+  }
+  return comparison;
 }
 
 function getUserScores(user) {
@@ -143,10 +217,6 @@ const renderScores = (scores, user) => {
   for(const el of scores){
     if (el.user_id === user.id){
       scoreArray.push(el.score)
-      // let scoreList = document.createElement('li')
-      // scoreList.innerHTML = el.score
-      // let unoList = document.querySelector('ul')
-      // unoList.appendChild(scoreList)
     }
   }
   scoreArray.sort(function(a, b) {
@@ -157,10 +227,9 @@ const renderScores = (scores, user) => {
   for (const el of topScores) {
     let scoreList = document.createElement('li')
     scoreList.innerHTML = el
-    let unoList = document.querySelector('ul')
+    let unoList = document.querySelector('div.show-scores')
     unoList.appendChild(scoreList)
   }
-  console.log(topScores)
 }
 
 
@@ -183,7 +252,7 @@ const createNewUser = () => {
     />
     <br />
     <input
-      type="text"
+      type="password"
       name="password"
       value=""
       placeholder="Enter password"
@@ -243,7 +312,7 @@ const editUserForm = (user) => {
     />
     <br />
     <input
-      type="text"
+      type="password"
       name="password"
       value=""
       placeholder="Enter password"
